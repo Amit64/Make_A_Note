@@ -41,7 +41,7 @@ export default function UpdateModal({id,isReload,setIsReload}) {
     const userName = e.target.userName.value;
     const textData = e.target.textData.value;
     console.log("updating...",{userName,textData});
-    fetch(`http://localhost:3005/note/${id}`, {
+    fetch(`https://note-taker-888.herokuapp.com/note/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
     userName,

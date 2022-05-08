@@ -10,7 +10,7 @@ function App() {
   const [isReload, setIsReload] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3005/notes")
+    fetch("https://note-taker-888.herokuapp.com/notes")
       .then((res) => res.json())
       .then((data) => setNotes(data));
   }, [isReload]);
@@ -23,7 +23,7 @@ to handle search by query, and it will be passed as props to header
     event.preventDefault();
     const queryText = event.target.searchText.value;
     if (queryText) {
-      fetch(`http://localhost:3005/notes?userName=${queryText}`)
+      fetch(`https://note-taker-888.herokuapp.com/notes?userName=${queryText}`)
         .then((res) => res.json())
         .then((data) => setNotes(data));
     }
@@ -34,7 +34,7 @@ to delete a note, and it will be passed as props to NoteCard that will be trigge
  */
 
 const handleDelete = id =>{
-  fetch(`http://localhost:3005/note/${id}`, {
+  fetch(`https://note-taker-888.herokuapp.com/note/${id}`, {
   method: 'DELETE',
 })
 .then(res=>res.json())
@@ -66,7 +66,7 @@ to post data to backend, and it will be passed as props to InputFrom.
     e.preventDefault();
     const userName = e.target.userName.value;
     const textData = e.target.textData.value;
-    fetch("http://localhost:3005/note", {
+    fetch("https://note-taker-888.herokuapp.com/note", {
       method: "POST",
       headers: {
         "content-type": "application/json",
