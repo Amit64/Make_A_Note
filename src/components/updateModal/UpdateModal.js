@@ -19,7 +19,7 @@ Modal.setAppElement("#root");
 
 //don't worry its just a package for modal. just go and explore https://www.npmjs.com/package/react-modal
 
-export default function UpdateModal() {
+export default function UpdateModal({id,isReload,setIsReload}) {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -35,6 +35,27 @@ export default function UpdateModal() {
   function closeModal() {
     setIsOpen(false);
   }
+  //handle update
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const userName = e.target.userName.value;
+    const textData = e.target.textData.value;
+    console.log("updating...",{userName,textData});
+    fetch(`http://localhost:3005/note/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+    userName,
+    textData
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((response) => response.json())
+  .then((data) =>{
+    setIsReload(!isReload);
+  } );
+  };
 
   return (
     <div>
@@ -54,13 +75,14 @@ export default function UpdateModal() {
         </button>
         <div>Please insert your text</div>
         <div className=" p-3 color-4D4C7D">
-          <form className="container " >
+          <form className="container " onSubmit={handleUpdate} >
             <div className="input-group mb-3 mt-5">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Your name"
                 aria-label="Username"
+                name="userName"
               />
             </div>
 
@@ -68,6 +90,7 @@ export default function UpdateModal() {
               <textarea
                 className="form-control"
                 aria-label="With textarea"
+                name="textData"
               ></textarea>
             </div>
             <div className="mt-4">
